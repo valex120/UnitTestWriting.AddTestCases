@@ -6,9 +6,8 @@ namespace UnitTestWriting.Domain;
 public sealed class PromoCode
 {
     /// <summary>
-    ///     Идентфикатор промокода
+    ///     Идентификатор промокода
     /// </summary>
-
     public Guid Id { get; }
 
     /// <summary>
@@ -24,13 +23,11 @@ public sealed class PromoCode
     /// <summary>
     ///     Размер скидки в процентах
     /// </summary>
-
     public int Discount { get; }
 
     /// <summary>
     ///     True, если доступен только премиум аккаунтам
     /// </summary>
-
     public bool PremiumOnly { get; }
 
     /// <summary>
