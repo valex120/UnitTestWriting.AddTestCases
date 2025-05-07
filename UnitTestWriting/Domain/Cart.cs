@@ -46,7 +46,7 @@ public sealed class Cart
     /// <param name="purchasedAt">Дата покупки</param>
     public int GetFullDiscount(DateTime purchasedAt)
     {
-        var discount = Discount ?? 0 + PromoCode?.Discount ?? 0;
+        var discount = (Discount ?? 0) + (PromoCode?.Discount ?? 0);
 
         var birthDate = Customer.BirthDate;
         var birthDateDiscount = purchasedAt.Day == birthDate.Day && purchasedAt.Month == birthDate.Month ? 5 : 0;
@@ -70,7 +70,7 @@ public sealed class Cart
         if (discount == 0)
             return price;
 
-        return price * discount / 100;
+        return price - (price * discount / 100);
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public sealed class Cart
         if (discount is >= 100 or <= 0)
             throw new ArgumentOutOfRangeException(nameof(discount));
 
-        var fullDiscount = discount + PromoCode?.Discount ?? 0;
+        var fullDiscount = (discount) + (PromoCode?.Discount ?? 0);
 
         if (fullDiscount >= 100)
             throw new ArgumentException("Общая скидка не может быть больше 100%");
@@ -128,7 +128,7 @@ public sealed class Cart
         if (fullDiscount >= 100)
             throw new ArgumentException("Общая скидка не может быть больше 100%");
 
-        if(promoCode.PremiumOnly && Customer.Premium is false)
+        if (promoCode.PremiumOnly && Customer.Premium is false)
             throw new Exception("Промокод только для пользователей премиальных аккаунтов");
 
         PromoCode = promoCode;
